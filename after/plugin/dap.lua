@@ -73,5 +73,5 @@ vim.keymap.set('n', '<leader>db', function() require('dap').toggle_breakpoint() 
 vim.keymap.set('n', '<leader>dc', function() require('dap').continue() end, {silent = true, noremap = true, desc = 'DAP Continue'})
 vim.keymap.set('n', '<leader>dk', function() require('dap').terminate() end, {silent = true, noremap = true, desc = 'DAP Terminate'})
 vim.keymap.set('n', '<leader>dl', function() require('dap').run_last() end,   {silent = true, noremap = true, desc = 'DAP Run Last'})
-vim.keymap.set('n', '<leader>dt', function() require("dapui").toggle()  end, {silent = true, noremap = true, desc = 'DAP UI Toggle' })
+vim.keymap.set('n', '<leader>dt', function() require("dapui").toggle() end, {silent = true, noremap = true, desc = 'DAP UI Toggle' })
 
