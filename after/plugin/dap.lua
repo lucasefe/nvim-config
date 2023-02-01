@@ -8,6 +8,15 @@ dap.adapters.node2 = {
   args = {os.getenv('HOME') .. '/.local/share/nvim/mason/packages/node-debug2-adapter/out/src/nodeDebug.js'},
 }
 
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+  command = vim.env.HOME .. '/.local/share/nvim/mason/packages/codelldb/extension/adapter/codelldb',
+    args = {"--port", "${port}"},
+  }
+}
+
 dap.configurations.javascript = {
   {
     name = 'Launch',
@@ -40,17 +49,29 @@ dap.configurations.javascript = {
   },
 }
 
+dap.configurations.rust = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
+}
+
+
 require("dapui").setup()
 
 require("neodev").setup({
   library = { plugins = { "nvim-dap-ui" }, types = true },
 })
 
-vim.keymap.set('n', '<leader>dk', function() require('dap').continue() end, {silent = true, noremap = true, desc = 'DAP Continue'})
-vim.keymap.set('n', '<leader>dl', function() require('dap').run_last() end,   {silent = true, noremap = true, desc = 'DAP Run Last'})
 vim.keymap.set('n', '<leader>db', function() require('dap').toggle_breakpoint() end,   {silent = true, noremap = true, desc = 'DAP Toggle Breakpoint'})
-
-vim.keymap.set('n', '<leader>do', function() require("dapui").open()  end, {silent = true, noremap = true, desc = 'DAP UI Open'})
-vim.keymap.set('n', '<leader>dc', function() require("dapui").close()  end, {silent = true, noremap = true, desc = 'DAP UI Close'})
+vim.keymap.set('n', '<leader>dc', function() require('dap').continue() end, {silent = true, noremap = true, desc = 'DAP Continue'})
+vim.keymap.set('n', '<leader>dk', function() require('dap').terminate() end, {silent = true, noremap = true, desc = 'DAP Terminate'})
+vim.keymap.set('n', '<leader>dl', function() require('dap').run_last() end,   {silent = true, noremap = true, desc = 'DAP Run Last'})
 vim.keymap.set('n', '<leader>dt', function() require("dapui").toggle()  end, {silent = true, noremap = true, desc = 'DAP UI Toggle' })
 

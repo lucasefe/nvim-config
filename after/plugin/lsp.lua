@@ -108,9 +108,6 @@ lsp.nvim_workspace()
 
 lsp.setup()
 
--- Initialize rust_analyzer with rust-tools
-require('rust-tools').setup({server = rust_lsp})
-
 vim.diagnostic.config({
   virtual_text = true,
 })
