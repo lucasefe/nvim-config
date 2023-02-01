@@ -108,6 +108,16 @@ lsp.nvim_workspace()
 
 lsp.setup()
 
+require('rust-tools').setup({
+  server = rust_lsp,
+  checkOnSave = {
+    command = "clippy"
+  },
+})
+
+
+-- Rust
+--   {os.getenv('HOME') .. '/.local/share/nvim/mason/packages/node-debug2-adapter/out/src/nodeDebug.js'},
 vim.diagnostic.config({
   virtual_text = true,
 })
